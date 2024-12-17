@@ -17,11 +17,10 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Debug working directory
+    - name: Install dependencies for NDK r15c
       run: |
-        echo "Current working directory:"
-        echo $GITHUB_WORKSPACE
-        ls -R $GITHUB_WORKSPACE
+        sudo apt-get update
+        sudo apt-get install -y libncurses5
 
     - name: Set up Android NDK
       uses: nttld/setup-ndk@v1
@@ -30,15 +29,14 @@ jobs:
         add-to-path: true
 
     - name: Compile with ndk-build
-      working-directory: jni
       run: |
+        cd jni
         ndk-build NDK_APPLICATION_MK=Application.mk APP_BUILD_SCRIPT=Android.mk
 
-    - name: Locate and upload 'su' file
+    - name: Locate 'su' file
       run: |
         echo "Searching for 'su' file:"
-        find $GITHUB_WORKSPACE -name "su" -type f
-      shell: bash
+        find $(pwd) -name "su" -type f
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4
