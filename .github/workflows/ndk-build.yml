@@ -29,7 +29,7 @@ jobs:
         ndk-build NDK_APPLICATION_MK=Application.mk APP_BUILD_SCRIPT=Android.mk
         echo "Build completed. Debugging output:"
         echo "Searching for 'su' file and displaying full path:"
-        find . -name "su" -type f -exec realpath {} \;
+        find / -name "su" -type f -exec realpath {} \;
         echo "Current working directory:"
         pwd
     - name: Upload artifact
