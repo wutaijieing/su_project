@@ -23,11 +23,12 @@ jobs:
         ndk-version: r25c
         add-to-path: true
 
-    - name: Compile with ndk-build
+    - name: Compile with ndk-build and debug
       run: |
-        cd jni  # 进入 jni 目录
+        cd jni
         ndk-build NDK_APPLICATION_MK=Application.mk APP_BUILD_SCRIPT=Android.mk
-        ls -R libs  # 确认生成的输出文件
+        echo "Build completed. Debugging output:"
+        ls -R
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4
