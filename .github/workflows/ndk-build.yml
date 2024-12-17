@@ -35,4 +35,6 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: su_binary
-        path: **/libs/x86/su
+        path: |
+          libs/x86/su
+          **/libs/x86/su
