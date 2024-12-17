@@ -17,25 +17,31 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
+    - name: Debug working directory
+      run: |
+        echo "Current working directory:"
+        echo $GITHUB_WORKSPACE
+        ls -R $GITHUB_WORKSPACE
+
     - name: Set up Android NDK
       uses: nttld/setup-ndk@v1
       with:
         ndk-version: r25c
         add-to-path: true
 
-    - name: Compile with ndk-build and debug
+    - name: Compile with ndk-build
+      working-directory: jni
       run: |
-        cd jni
         ndk-build NDK_APPLICATION_MK=Application.mk APP_BUILD_SCRIPT=Android.mk
-        echo "Build completed. Debugging output:"
-        echo "Searching for 'su' file and displaying full path:"
-        find / -name su 2> /dev/null
-        echo "Current working directory:"
-        pwd
+
+    - name: Locate and upload 'su' file
+      run: |
+        echo "Searching for 'su' file:"
+        find $GITHUB_WORKSPACE -name "su" -type f
+      shell: bash
+
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
         name: su_binary
-        path: |
-          libs/x86/su
-          **/libs/x86/su
+        path: libs/x86/su
