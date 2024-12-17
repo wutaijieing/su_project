@@ -1,0 +1,11 @@
+LOCAL_PATH := $(call my-dir)
+
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := su
+LOCAL_SRC_FILES := su.cpp
+LOCAL_MODULE_FILENAME := su
+LOCAL_LDFLAGS += -fPIE -pie
+LOCAL_CFLAGS += -fPIE -DANDROID
+
+include $(BUILD_EXECUTABLE)
