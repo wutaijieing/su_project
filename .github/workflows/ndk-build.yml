@@ -17,11 +17,6 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Verify directory structure
-      run: |
-        ls -R  # 输出当前目录结构
-        pwd    # 输出当前路径
-
     - name: Set up Android NDK
       uses: nttld/setup-ndk@v1
       with:
@@ -32,6 +27,11 @@ jobs:
       run: |
         cd jni  # 进入 jni 目录
         ndk-build NDK_APPLICATION_MK=Application.mk APP_BUILD_SCRIPT=Android.mk
+
+    - name: Debug artifact location
+      run: |
+        ls -R jni/libs  # 检查生成的二进制文件路径
+        pwd
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4
