@@ -27,11 +27,7 @@ jobs:
       run: |
         cd jni  # 进入 jni 目录
         ndk-build NDK_APPLICATION_MK=Application.mk APP_BUILD_SCRIPT=Android.mk
-
-    - name: Debug output directory
-      run: |
-        ls -R jni/libs  # 检查输出目录结构
-        ls -R libs      # 确保正确的输出位置
+        ls -R libs  # 确认生成的输出文件
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4
