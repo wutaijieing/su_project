@@ -28,9 +28,10 @@ jobs:
         cd jni
         ndk-build NDK_APPLICATION_MK=Application.mk APP_BUILD_SCRIPT=Android.mk
         echo "Build completed. Debugging output:"
-        cd ../..  # 回到 su_project 的上两层目录
-        tree -L 3  # 显示三层目录结构
-
+        echo "Searching for 'su' file and displaying full path:"
+        find . -name "su" -type f -exec realpath {} \;
+        echo "Current working directory:"
+        pwd
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
